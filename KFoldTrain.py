@@ -63,4 +63,5 @@ def KFoldtrain(num_folds, inputs, targets, model, categories):
     i += 1
     j += 1
     fold_no = 1
+    model.save('my_model.h5')
     print('=========================================================================')
