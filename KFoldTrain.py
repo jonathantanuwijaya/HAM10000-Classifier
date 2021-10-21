@@ -23,7 +23,8 @@ def KFoldtrain(num_folds, inputs, targets, model, categories):
     for train, test in kfold.split(inputs, targets):
         print('------------------------------------------------------------------------')
         print(f'Training for fold {fold_no} ...')
-        r = model.fit(inputs[train[0:1]], targets[train[0:1]], validation_data=(inputs[test], targets[test]))
+        r = model.fit(inputs[train], targets[train], validation_data=(inputs[test], targets[test]),
+                      epochs=100, batch_size=32)
 
         scores = model.evaluate(inputs[test], targets[test], verbose=0)
 
