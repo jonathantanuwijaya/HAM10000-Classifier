@@ -24,7 +24,7 @@ def KFoldtrain(num_folds, inputs, targets, model, categories):
         print('------------------------------------------------------------------------')
         print(f'Training for fold {fold_no} ...')
         r = model.fit(inputs[train], targets[train], validation_data=(inputs[test], targets[test]),
-                      epochs=100, batch_size=32)
+                      steps_per_epoch=10, epochs=100, batch_size=32)
 
         scores = model.evaluate(inputs[test], targets[test], verbose=0)
 
