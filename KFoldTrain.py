@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
 from sklearn.model_selection import KFold
 from ConfusionMatrix import plot_confusion_matrix
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 import numpy as np
 
 
@@ -19,12 +20,24 @@ def KFoldtrain(num_folds, inputs, targets, model, categories):
     learningrate = []
     acc_per_fold = []
     loss_per_fold = []
+    checkpoint = ModelCheckpoint(filepath='model/HAMResNet152.hdf5', monitor='val_accuracy', save_best_only=True,
+                                 save_weights_only=True)
+    Earlystop = EarlyStopping(monitor='val_loss', mode='min', patience=40, min_delta=0.001)
+
+    class_weights = {
+        0: 1.0,  # bkl
+        1: 1.0,  # nv
+        2: 1.0,  # mel
+        3: 1.0,  # bcc
+        4: 5.0,  # akiec
+    }
 
     for train, test in kfold.split(inputs, targets):
         print('------------------------------------------------------------------------')
         print(f'Training for fold {fold_no} ...')
         r = model.fit(inputs[train], targets[train], validation_data=(inputs[test], targets[test]),
-                      steps_per_epoch=10, epochs=100, batch_size=32)
+                      verbose=1, class_weight=class_weights, callbacks=[checkpoint, Earlystop], steps_per_epoch=10,
+                      epochs=100)
 
         scores = model.evaluate(inputs[test], targets[test], verbose=0)
 
