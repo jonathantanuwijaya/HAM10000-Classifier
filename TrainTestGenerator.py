@@ -3,7 +3,7 @@ import os
 
 
 def generateTrainTestDir(train_dir, test_dir, data_pd, train_list, test_list):
-    targetnames = ['akiec', 'bcc', 'bkl', 'df', 'mel', 'nv', 'vasc']
+    targetnames = ['akiec', 'bcc', 'bkl', 'mel', 'nv']
 
     for i in targetnames:
         directory1 = train_dir + '/' + i
