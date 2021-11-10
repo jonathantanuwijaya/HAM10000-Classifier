@@ -18,12 +18,12 @@ def startAugmentation():
         img_dir = os.path.join(aug_dir, 'img_dir')
         os.mkdir(img_dir)
 
-        img_list = os.listdir('HAM10000/train_dir/' + img_class)
+        img_list = os.listdir('HAM10000/train_dirr/' + img_class)
 
         # Copy images from the class train dir to the img_dir
         for file_name in img_list:
             # path of source image in training directory
-            source = os.path.join('HAM10000/train_dir/' + img_class, file_name)
+            source = os.path.join('HAM10000/train_dirr/' + img_class, file_name)
 
             # creating a target directory to send images
             target = os.path.join(img_dir, file_name)
@@ -35,7 +35,7 @@ def startAugmentation():
         source_path = aug_dir
 
         # Augmented images will be saved to training directory
-        save_path = 'HAM10000/train_dir/' + img_class
+        save_path = 'HAM10000/train_dirr/' + img_class
 
         # Creating Image Data Generator to augment images
         datagen = tf.keras.preprocessing.image.ImageDataGenerator(
